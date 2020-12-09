@@ -67,13 +67,20 @@ int main() {
   runTests();
   cout << "******************************************************" << endl;
   // create an object which holds data of experiment A
-  Data datA("exp_A");
-
-  // here is the data from experiment A
-  cout << "bin 27: from " << datA.binLow(27) << " to " << datA.binHigh(27)
+  vector<Data> data;
+  Data datA("exp_A"); data.push_back(datA);
+  Data datB("exp_B"); data.push_back(datB);
+  Data datC("exp_C"); data.push_back(datC);
+  Data datD("exp_D"); data.push_back(datD);
+  
+  // here is the data from all experiments
+  for (int i; i < 4; ++i){
+    cout << "bin 27: from  experiment " << i << ": " << data[i].binLow(27) << " to " <<  data[i].binHigh(27)
        << endl;
-  cout << "measurement of experiment A in bin 27: " << datA.measurement(27)
+  cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
        << endl;
+  }
+  
 
   return 0;
 }
