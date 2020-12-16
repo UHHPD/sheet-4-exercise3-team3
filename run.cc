@@ -2,6 +2,7 @@
 #include <vector>
 #include <functional>
 #include <string>
+#include <cmath>
 
 #include "Data.hh"
 
@@ -67,13 +68,51 @@ int main() {
   runTests();
   cout << "******************************************************" << endl;
   // create an object which holds data of experiment A
-  Data datA("exp_A");
+  vector<Data> data;
+  Data datA("exp_A"); data.push_back(datA);
+  Data datB("exp_B"); data.push_back(datB);
+  Data datC("exp_C"); data.push_back(datC);
+  Data datD("exp_D"); data.push_back(datD);
+  
+  // here is the data from all experiments
+  for (int i; i < 4; ++i){
+    cout << "bin 27: from  experiment " << i << ": " << data[i].binLow(27) << " to " <<  data[i].binHigh(27)
+       << endl;
+  cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
+       << endl;
+  }
 
-  // here is the data from experiment A
-  cout << "bin 27: from " << datA.binLow(27) << " to " << datA.binHigh(27)
-       << endl;
-  cout << "measurement of experiment A in bin 27: " << datA.measurement(27)
-       << endl;
+  
+  double y1 = data[1].measurement(27), sigmay1 = data[1].error(27);
+  double y2 = data[2].measurement(27), sigmay2 = data[2].error(27);
+
+  double dy = y1 - y2;
+  double sigmay = sqrt(pow(sigmay1, 2) + pow(sigmay2, 2));
+  /*
+  for (int n=1; n < 4; ++n){
+    cout << n << "sigma: " << abs(dy) << " < " << n * sigmay << "?" << endl;
+  }
+  */
+  /*
+  cout << data[0].checkCompatibility(data[0], 1) << endl;
+  cout << data[1].checkCompatibility(data[1], 1) << endl;
+  cout << data[2].checkCompatibility(data[2], 1) << endl;
+  cout << data[3].checkCompatibility(data[3], 1) << endl;
+
+  cout << data[0].checkCompatibility(data[1], 1) << endl;
+  cout << data[0].checkCompatibility(data[2], 1) << endl;
+  cout << data[0].checkCompatibility(data[3], 1) << endl;
+  
+  cout << data[1].checkCompatibility(data[2], 1) << endl;
+  cout << data[1].checkCompatibility(data[3], 1) << endl;
+
+  cout << data[2].checkCompatibility(data[3], 1) << endl;
+  */
+  Data data01 = data[0] + data[1];
+
+
+
+  
 
   return 0;
 }

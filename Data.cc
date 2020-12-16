@@ -44,4 +44,28 @@ Data::Data(const std::string& filename) {
   assertSizes();
 };
 
+// New constructor to enable adding of Data objects
+Data::Data(std::vector<double> data, std::vector<double> bins, std::vector<double> errors){
+  // new constructor, sets memebers by hand
+  std::vector<double> m_data = data;
+  std::vector<double> m_bins = bins;
+  std::vector<double> m_errors = errors;
+}
+
 void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size()); }
+
+int Data::checkCompatibility(const Data& inData, int n){
+  int counter = 0;
+  for (int i; i < m_data.size(); ++i){
+    double y1 = m_data[i], sigmay1 = m_errors[i];
+    double y2 = inData.measurement(i), sigmay2 = inData.error(i);
+
+    double dy = abs(y1 - y2);
+    double sigmay = sqrt(pow(sigmay1, 2) + pow(sigmay2, 2));
+    if (dy > n * sigmay){
+      counter++;
+    }
+  return counter;
+  }
+}
+
