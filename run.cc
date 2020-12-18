@@ -75,6 +75,7 @@ int main() {
   Data datD("exp_D"); data.push_back(datD);
 
   std::vector<Data> data1 = {datA, datB, datC, datD};
+
   
   // here is the data from all experiments
   for (int i; i < 4; ++i){
@@ -83,7 +84,6 @@ int main() {
   cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
        << endl;
   }
-
   
   double y1 = data[1].measurement(27), sigmay1 = data[1].error(27);
   double y2 = data[2].measurement(27), sigmay2 = data[2].error(27);
