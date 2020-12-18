@@ -73,6 +73,8 @@ int main() {
   Data datB("exp_B"); data.push_back(datB);
   Data datC("exp_C"); data.push_back(datC);
   Data datD("exp_D"); data.push_back(datD);
+
+  std::vector<Data> data1 = {datA, datB, datC, datD};
   
   // here is the data from all experiments
   for (int i; i < 4; ++i){
@@ -108,11 +110,39 @@ int main() {
 
   cout << data[2].checkCompatibility(data[3], 1) << endl;
   */
-  Data data01 = data[0] + data[1];
+  cout << "*************  2  a    **************" << endl;
 
-
-
+  for (int n = 1; n < 4; ++n){
+    cout << "Differ by more that " << n << " standard deviations:" << endl;
+    for (int i = 0; i < data1.size(); ++i){
+      for (int j = i+1; j < data1.size(); ++j){
+        cout << data1[i].checkCompatibility(data1[j], n) << endl;
+      }
+      cout << "*************" << endl;
+    }
+  }
   
+  cout << "**************** 2 b  *************" << endl;
+
+  for (int i=0; i < 4; ++i){
+    cout << data1[i].chi2ndf()
+       << endl;
+       /*
+    cout << data1[i].measurement(3)
+       << endl;
+    cout << data1[i].measurement(3)
+       << endl;
+    cout << "************************" << endl;*/
+  }
+
+  cout << "*************** 2 c  **************" << endl;
+  Data combData01 = data1[0] + data1[1];
+  Data combData23 = data1[2] + data1[3];
+  Data combData = combData01 + combData23;
+
+  cout << combData01.chi2ndf() << endl;
+  cout << combData23.chi2ndf() << endl;
+  cout << combData.chi2ndf() << endl;
 
   return 0;
 }
