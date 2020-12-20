@@ -83,11 +83,12 @@ int Data::checkCompatibility(const Data& inData, int n){
     double dy = abs(y1 - y2);
     double sigmay = sqrt(pow(sigmay1, 2) + pow(sigmay2, 2));
     if (dy > n * sigmay){
-      counter++;
-      std::cout << "Deviation in bin: " << i << endl;
+      ++counter;
+      //std::cout << "Deviation in bin: " << i << endl;
     }
-  return counter;
+  // here the return statement used to be, which is too early!
   }
+  return counter;
 }
 
 double Data::chi2ndf(){

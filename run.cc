@@ -75,6 +75,7 @@ int main() {
   Data datD("exp_D"); data.push_back(datD);
 
   std::vector<Data> data1 = {datA, datB, datC, datD};
+
   
   // here is the data from all experiments
   for (int i; i < 4; ++i){
@@ -83,18 +84,24 @@ int main() {
   cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
        << endl;
   }
-
+  int deviation_counter = 0;
+  for (int i = 0; i < data[1].size(); ++i){
+    double y1 = data[1].measurement(i), sigmay1 = data[1].error(i);
+    double y2 = data[2].measurement(i), sigmay2 = data[2].error(i);
+    
+    double dy = y1 - y2;
+    double sigmay = sqrt(pow(sigmay1, 2) + pow(sigmay2, 2));
   
-  double y1 = data[1].measurement(27), sigmay1 = data[1].error(27);
-  double y2 = data[2].measurement(27), sigmay2 = data[2].error(27);
-
-  double dy = y1 - y2;
-  double sigmay = sqrt(pow(sigmay1, 2) + pow(sigmay2, 2));
-  /*
-  for (int n=1; n < 4; ++n){
-    cout << n << "sigma: " << abs(dy) << " < " << n * sigmay << "?" << endl;
+    if (abs(dy) > sigmay){
+        ++deviation_counter;
+      }
+    for (int n=1; n < 2; ++n){
+      //cout << n << "sigma: " << abs(dy) << " < " << n * sigmay << "?" << endl;
+    }
   }
-  */
+  cout << "Deviating bins: " << deviation_counter << endl;
+  
+  
   /*
   cout << data[0].checkCompatibility(data[0], 1) << endl;
   cout << data[1].checkCompatibility(data[1], 1) << endl;
@@ -123,9 +130,9 @@ int main() {
   }
   
   cout << "**************** 2 b  *************" << endl;
-
+  vector<string> data_labels = {"A", "B", "C", "D"};
   for (int i=0; i < 4; ++i){
-    cout << data1[i].chi2ndf()
+    cout << "ndf of " << data_labels[i] << ": " << data1[i].chi2ndf()
        << endl;
        /*
     cout << data1[i].measurement(3)
@@ -140,9 +147,9 @@ int main() {
   Data combData23 = data1[2] + data1[3];
   Data combData = combData01 + combData23;
 
-  cout << combData01.chi2ndf() << endl;
-  cout << combData23.chi2ndf() << endl;
-  cout << combData.chi2ndf() << endl;
+  cout << "ndf of A + B: " << combData01.chi2ndf() << endl;
+  cout << "ndf of C + D: " << combData23.chi2ndf() << endl;
+  cout << "ndf of all: " << combData.chi2ndf() << endl;
 
   return 0;
 }

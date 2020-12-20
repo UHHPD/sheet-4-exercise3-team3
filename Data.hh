@@ -22,7 +22,7 @@ class Data {
 
   Data operator+(const Data& inData){
     /// Define addition for data sets by error weighted averaging
-    if(checkCompatibility(inData, 1) < 20){;
+    if(checkCompatibility(inData, 1) < m_data.size()*0.8){;
     // Define inputs for return data set, will be inputs to additional constructor
       std::vector<double> data;
       std::vector<double> bins = m_bins;
