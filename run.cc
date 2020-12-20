@@ -84,6 +84,7 @@ int main() {
   cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
        << endl;
   }
+
   int deviation_counter = 0;
   for (int i = 0; i < data[1].size(); ++i){
     double y1 = data[1].measurement(i), sigmay1 = data[1].error(i);
