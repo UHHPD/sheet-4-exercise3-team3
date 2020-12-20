@@ -76,10 +76,10 @@ int main() {
 
   std::vector<Data> data1 = {datA, datB, datC, datD};
 
-  
+  vector<string> data_labels = {"A", "B", "C", "D"};
   // here is the data from all experiments
-  for (int i; i < 4; ++i){
-    cout << "bin 27: from  experiment " << i << ": " << data[i].binLow(27) << " to " <<  data[i].binHigh(27)
+  for (int i=0; i < 4; ++i){
+    cout << "bin 27: from  experiment " << data_labels[i] << ": " << data[i].binLow(27) << " to " <<  data[i].binHigh(27)
        << endl;
   cout << "measurement of experiment " << i << " in bin 27: " <<  data[i].measurement(27)
        << endl;
@@ -131,7 +131,7 @@ int main() {
   }
   
   cout << "**************** 2 b  *************" << endl;
-  vector<string> data_labels = {"A", "B", "C", "D"};
+  
   for (int i=0; i < 4; ++i){
     cout << "ndf of " << data_labels[i] << ": " << data1[i].chi2ndf()
        << endl;
