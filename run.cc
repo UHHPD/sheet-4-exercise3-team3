@@ -121,10 +121,12 @@ int main() {
   cout << "*************  2  a    **************" << endl;
 
   for (int n = 1; n < 4; ++n){
-    cout << "Differ by more that " << n << " standard deviations:" << endl;
-    for (int i = 0; i < data1.size(); ++i){
+    cout << "Differ by more than " << n << " standard deviations:" << endl;
+    for (int i = 0; i < data1.size()-1; ++i){
+      cout << "*************" << endl;
+      cout << "Comparing " << data_labels[i] << " to ..." << endl;
       for (int j = i+1; j < data1.size(); ++j){
-        cout << data1[i].checkCompatibility(data1[j], n) << endl;
+        cout << "... " << data_labels[j] << ": "<< data1[i].checkCompatibility(data1[j], n) << endl;
       }
       cout << "*************" << endl;
     }
